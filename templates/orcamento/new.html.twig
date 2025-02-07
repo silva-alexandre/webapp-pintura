@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Orcamento{% endblock %}
+{% block title %}Novo Orçamento{% endblock %}
 
 {% block body %}
-    <h1>Create new Orcamento</h1>
+    <div class="container mt-4">
+        <h1 class="text-center">Criar Novo Orçamento</h1>
 
-    {{ include('orcamento/_form.html.twig') }}
+        <!-- Componente Vue -->
+        <div {{ vue_component('OrcamentoSimulator') }}></div>
 
-    <a href="{{ path('app_orcamento_index') }}">back to list</a>
+        <a href="{{ path('app_orcamento_index') }}" class="btn btn-secondary mt-3">Voltar para a lista</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module">
+        import { createApp } from 'vue';
+        import OrcamentoSimulator from '/build/vue/controllers/OrcamentoSimulator.js'; // Ajuste se necessário
+
+        const app = createApp({});
+        app.component('orcamento-simulator', OrcamentoSimulator);
+        app.mount('#orcamento-app');
+    </script>
 {% endblock %}

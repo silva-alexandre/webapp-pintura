@@ -18,21 +18,27 @@
             <tr>
                 <th>Detalhe</th>
                 <td>{{ servico.detalhe }}</td>
-            </tr>
-            <tr>
-                <th>Preco</th>
-                <td>{{ servico.preco }}</td>
-            </tr>
-            <tr>
-                <th>Foto</th>
-                <td>{{ servico.foto ? servico.foto|json_encode : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                </tr>
+                <tr>
+                    <th>Preco</th>
+                    <td>{{ servico.preco }}</td>
+                </tr>
+                <tr>
+                    <th>Foto</th>
+                    <td>
+                        {% if servico.foto and servico.foto|length > 0 %}
+                            <img src="{{ asset('uploads/' ~ servico.foto[0]) }}" alt="Foto do Servico" />
+                        {% else %}
+                            ''
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_servico_index') }}">back to list</a>
+        <a href="{{ path('app_servico_index') }}">back to list</a>
 
-    <a href="{{ path('app_servico_edit', {'id': servico.id}) }}">edit</a>
+        <a href="{{ path('app_servico_edit', {'id': servico.id}) }}">edit</a>
 
-    {{ include('servico/_delete_form.html.twig') }}
+        {{ include('servico/_delete_form.html.twig') }}
 {% endblock %}
