@@ -45,12 +45,29 @@
           <button type="submit" class="btn btn-primary w-100">Registrar orçamento</button>
         </div>
       </form>
+          <!-- Carrossel de imagens do serviço -->
+          <div v-if="fotos.length > 0" class="carousel-container mt-4">
+            <h3 class="text-center text-white">Serviços conluídos</h3>
+            <div id="carouselServico" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div v-for="(imagem, index) in fotos" :key="index" class="carousel-item" :class="{ 'active': index === 0 }">
+                  <img :src="`/uploads/${imagem}`" class="d-block w-100 img-fluid" alt="Imagem do serviço">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselServico" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselServico" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 const nome = ref("");
 const contato = ref("");
@@ -58,12 +75,33 @@ const servicos = ref([]);
 const servico = ref(null);
 const quantidade = ref(1);
 const valorTotal = ref(0);
+const fotos = ref([]);
 
 onMounted(() => {
   fetch("/servico/api")
     .then((response) => response.json())
-    .then((data) => (servicos.value = data));
+    .then((data) => (servicos.value = data))
+    .catch((error) => console.error("Erro ao buscar serviços:", error));
 });
+
+// Atualiza fotos quando um serviço for selecionado
+watch(servico, async (newServico) => {
+  if (newServico && newServico.foto) {
+    fotos.value = newServico.foto;
+
+    // Aguarda Vue atualizar o DOM
+    await nextTick();
+
+    // Reinicializa o Bootstrap Carousel para garantir a exibição correta das imagens
+    const carouselElement = document.getElementById("carouselServico");
+    if (carouselElement) {
+      new Carousel(carouselElement);
+    }
+  } else {
+    fotos.value = [];
+  }
+});
+
 
 const updateTotal = () => {
   if (servico.value && servico.value.preco) {
@@ -98,6 +136,37 @@ const submitForm = () => {
   background-size: cover;
 }
 
+.carousel-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.carousel-inner img {
+  border-radius: 10px;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+/* Ajustes para telas menores que 525px */
+@media (max-width: 525px) {
+  .form-container {
+    max-width: 90%;
+    padding: 8px;
+  }
+
+  .carousel-container {
+    max-width: 100%;
+  }
+
+  .carousel-inner img {
+    max-height: 200px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
 /* Estiliza o container do formulário */
 .form-container {
   max-width: 500px;

@@ -18,11 +18,12 @@ class ServicoType extends AbstractType
         ->add('detalhe')
         ->add('preco')
         ->add('foto', FileType::class, [
-            'label'    => 'Foto',
-            'mapped'   => false, // Importante: não mapeia diretamente em Servico::foto
-            'required' => false, // Caso o campo não seja obrigatório
-        ])
-    ;
+            'label' => 'Fotos do Serviço',
+            'multiple' => true, // Permite múltiplos arquivos
+            'mapped' => false, // Não está mapeado diretamente para a entidade
+            'required' => false,
+            'attr' => ['accept' => 'image/*'],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

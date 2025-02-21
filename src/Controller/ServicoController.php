@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +37,7 @@ final class ServicoController extends AbstractController
                 'tipo' => $servico->getTipo(),
                 'detalhe' => $servico->getDetalhe(),
                 'preco' => $servico->getPreco(),
-                'fotos' => $servico->getFoto(), // Retorna a lista de imagens
+                'foto' => $servico->getFoto(), // Retorna a lista de imagens
             ];
         }
     
@@ -96,13 +95,34 @@ final class ServicoController extends AbstractController
     {
         $form = $this->createForm(ServicoType::class, $servico);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $fotoFiles = $form->get('foto')->getData();
+            $fotosNomes = $servico->getFoto() ?? []; // Mantém fotos anteriores
+    
+            if ($fotoFiles) {
+                foreach ($fotoFiles as $fotoFile) {
+                    $originalFilename = $fotoFile->getClientOriginalName();
+    
+                    try {
+                        $fotoFile->move(
+                            $this->getParameter('uploads_directory'), // Certifique-se que existe em services.yaml
+                            $originalFilename
+                        );
+                        $fotosNomes[] = $originalFilename; // Adiciona o nome ao array
+                    } catch (FileException $e) {
+                        // Erro no upload
+                    }
+                }
+                $servico->setFoto($fotosNomes);
+            }
+    
+            $entityManager->persist($servico);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_servico_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('servico/edit.html.twig', [
             'servico' => $servico,
             'form' => $form,
