@@ -10,6 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Servico;
+use App\Entity\Cliente;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/orcamento')]
 final class OrcamentoController extends AbstractController
@@ -20,6 +24,47 @@ final class OrcamentoController extends AbstractController
         return $this->render('orcamento/index.html.twig', [
             'orcamentos' => $orcamentoRepository->findAll(),
         ]);
+    }
+
+    #[Route('/api', name: 'api_orcamento', methods: ['POST'])]
+    public function criarOrcamento(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // Validação básica dos dados recebidos
+        if (!isset($data['nome'], $data['contato'], $data['servico'], $data['qtd'], $data['valortotal'])) {
+            return new JsonResponse(['error' => 'Dados incompletos'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        // Criar e persistir o Cliente (se necessário)
+        $cliente = new Cliente();
+        $cliente->setNome($data['nome']);
+        $cliente->setContato($data['contato']);
+        $entityManager->persist($cliente);
+
+        // Buscar o serviço correspondente
+        $servico = $entityManager->getRepository(Servico::class)->find($data['servico']);
+
+        if (!$servico) {
+            return new JsonResponse(['error' => 'Serviço não encontrado'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        // Criar o orçamento
+        $orcamento = new Orcamento();
+        $orcamento->setIdCliente($cliente);
+        $orcamento->setIdServico($servico);
+        $orcamento->setQtd((float) $data['qtd']);
+        $orcamento->setValorTotal((float) $data['valortotal']);
+
+        // Persistindo no banco de dados
+        $entityManager->persist($orcamento);
+        $entityManager->flush();
+
+        // Retornando resposta JSON com sucesso
+        return new JsonResponse([
+            'message' => 'Orçamento registrado com sucesso!',
+            'id' => $orcamento->getId()
+        ], JsonResponse::HTTP_CREATED);
     }
 
     #[Route('/new', name: 'app_orcamento_new', methods: ['GET', 'POST'])]

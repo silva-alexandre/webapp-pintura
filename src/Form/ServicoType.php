@@ -6,17 +6,23 @@ use App\Entity\Servico;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class ServicoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tipo')
-            ->add('detalhe')
-            ->add('preco')
-            ->add('foto')
-        ;
+        ->add('tipo')
+        ->add('detalhe')
+        ->add('preco')
+        ->add('foto', FileType::class, [
+            'label'    => 'Foto',
+            'mapped'   => false, // Importante: não mapeia diretamente em Servico::foto
+            'required' => false, // Caso o campo não seja obrigatório
+        ])
+    ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

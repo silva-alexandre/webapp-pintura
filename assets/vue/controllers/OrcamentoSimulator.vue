@@ -1,170 +1,160 @@
 <template>
-  <div class="container">
-    <h1 class="text-center my-4">Simular Novo Orçamento</h1>
-    <div class="form-container">
-      <form @submit.prevent="submitForm">
-        <!-- Nome do Cliente -->
-        <div class="mb-3">
-          <label for="nome" class="form-label">Nome</label>
-          <input
-            type="text"
-            id="nome"
-            v-model="cliente.nome"
-            class="form-control"
-            placeholder="Seu nome"
-            required
-          />
+  <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-dark">
+    <div class="form-container p-4 shadow-lg">
+      <h2 class="text-center mb-4 text-white">Simular Orçamento</h2>
+
+      <form @submit.prevent="submitForm" class="row g-3">
+        <!-- Nome -->
+        <div class="col-12">
+          <label for="nome" class="form-label text-white">Nome</label>
+          <input type="text" id="nome" v-model="nome" class="form-control" placeholder="Seu nome" required />
         </div>
 
-        <!-- Contato do Cliente -->
-        <div class="mb-3">
-          <label for="contato" class="form-label">Contato</label>
-          <input
-            type="text"
-            id="contato"
-            v-model="cliente.contato"
-            class="form-control"
-            placeholder="Seu e-mail ou telefone"
-            required
-          />
+        <!-- Contato -->
+        <div class="col-12">
+          <label for="contato" class="form-label text-white">Contato</label>
+          <input type="text" id="contato" v-model="contato" class="form-control" placeholder="Seu contato" required />
         </div>
 
-        <!-- Seleção de Serviço -->
-        <div class="mb-3">
-          <label for="servico" class="form-label">Selecione um Serviço</label>
-          <select
-            v-model="orcamento.id_servico"
-            id="servico"
-            class="form-select"
-            @change="updateTotal"
-            required
-          >
-            <option value="" disabled>Escolha um serviço</option>
-            <option v-for="servico in servicos" :key="servico.id" :value="servico.id">
-              {{ servico.tipo }} - R$ {{ servico.valor_unid }}
+        <!-- Serviço -->
+        <div class="col-12">
+          <label for="servico" class="form-label text-white">Serviço</label>
+          <select v-model="servico" id="servico" class="form-select" @change="updateTotal" required>
+            <option disabled value="">Selecione um serviço</option>
+            <option v-for="servico in servicos" :key="servico.id" :value="servico">
+              {{ servico.tipo }} - R$ {{ servico.preco }}
             </option>
           </select>
         </div>
 
-        <!-- Quantidade (Metragem) como Range -->
-        <div class="mb-3">
-          <label for="qtd" class="form-label">Informe a metragem desejada</label>
-          <input
-            type="range"
-            id="qtd"
-            v-model.number="orcamento.qtd"
-            class="form-range"
-            min="1"
-            max="100"
-            @input="updateTotal"
-            :disabled="!orcamento.id_servico"
-          />
-          <div class="text-muted">Metragem: {{ orcamento.qtd }}</div>
+        <!-- Quantidade -->
+        <div class="col-12">
+          <label for="qtd" class="form-label text-white">Quantidade</label>
+          <input type="range" id="qtd" v-model.number="quantidade" class="form-range" min="1" max="50" @input="updateTotal" />
+          <div class="text-white">Metragem: <strong>{{ quantidade }}</strong></div>
         </div>
 
-        <!-- Exibição do Valor Total -->
-        <div class="mb-3">
-          <strong>Preço estimado:</strong> R$ {{ orcamento.valor_total.toFixed(2) }}
+        <!-- Valor Total -->
+        <div class="col-12 text-center">
+          <strong class="text-white">Valor Total:</strong>
+          <span class="text-white fw-bold">R$ {{ valorTotal.toFixed(2) }}</span>
         </div>
 
-        <!-- Botão de Envio -->
-        <button type="submit" class="btn btn-primary w-100">Simular Orçamento</button>
+        <!-- Botão -->
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary w-100">Registrar orçamento</button>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      servicos: [], // Lista de serviços da API
-      cliente: {
-        nome: "",
-        contato: "",
-      },
-      orcamento: {
-        id_servico: null, // ID do serviço selecionado
-        qtd: 10, // Quantidade inicial
-        valor_total: 0, // Valor total calculado
-      },
-    };
-  },
-  methods: {
-    fetchData() {
-      fetch("/servico/api") // Ajuste para a URL correta da API
-        .then((response) => response.json())
-        .then((data) => {
-          this.servicos = data;
-        })
-        .catch((error) => {
-          console.error("Erro ao carregar serviços:", error);
-        });
-    },
-    updateTotal() {
-      const servicoSelecionado = this.servicos.find(
-        (s) => s.id === this.orcamento.id_servico
-      );
+<script setup>
+import { ref, onMounted } from "vue";
 
-      if (servicoSelecionado) {
-        this.orcamento.valor_total = servicoSelecionado.valor_unid * this.orcamento.qtd;
-      } else {
-        this.orcamento.valor_total = 0;
-      }
-    },
-    submitForm() {
-      const payload = {
-        cliente: this.cliente,
-        id_servico: this.orcamento.id_servico,
-        qtd: this.orcamento.qtd,
-        valor_total: this.orcamento.valor_total,
-      };
+const nome = ref("");
+const contato = ref("");
+const servicos = ref([]);
+const servico = ref(null);
+const quantidade = ref(1);
+const valorTotal = ref(0);
 
-      console.log("Enviando dados:", payload);
+onMounted(() => {
+  fetch("/servico/api")
+    .then((response) => response.json())
+    .then((data) => (servicos.value = data));
+});
 
-      fetch("/orcamento/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          alert(`Orçamento registrado com sucesso! ID: ${data.id}`);
-        })
-        .catch((error) => {
-          console.error("Erro ao registrar orçamento:", error);
-          alert("Ocorreu um erro ao processar sua solicitação.");
-        });
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
+const updateTotal = () => {
+  if (servico.value && servico.value.preco) {
+    valorTotal.value = servico.value.preco * quantidade.value;
+  }
+};
+
+const submitForm = () => {
+  const payload = {
+    nome: nome.value,
+    contato: contato.value,
+    servico: servico.value ? servico.value.id : null,
+    qtd: quantidade.value,
+    valortotal: valorTotal.value,
+  };
+
+  fetch("/orcamento/api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => alert(`Orçamento registrado! ID: ${data.id}`))
+    .catch(() => alert("Erro ao registrar orçamento"));
 };
 </script>
 
 <style scoped>
-.container {
-  max-width: 600px;
-  margin: 40px auto;
+/* Define a imagem de fundo */
+.container-fluid {
+  background: url('/public/uploads/acrilicia-inter.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
+
+/* Estiliza o container do formulário */
 .form-container {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+/* Estiliza os inputs */
+/* Estiliza os inputs */
 .form-control, .form-select {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+}
+
+.form-control::placeholder, .form-select {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Garante que o select fique com fundo escuro e estilizado */
+.form-select {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
   border-radius: 5px;
 }
-.form-range {
-  cursor: pointer;
+
+/* Estiliza as opções do select */
+.form-select option {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
 }
+
+/* Melhora a aparência ao focar no select */
+.form-control:focus, .form-select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Estiliza o botão */
 .btn-primary {
-  background-color: #007bff;
+  background: rgba(79, 117, 133, 0.8);
   border: none;
+  transition: all 0.3s;
 }
+
 .btn-primary:hover {
-  background-color: #0056b3;
+  background: rgba(79, 117, 133, 1);
+}
+
+/* Estiliza o input range */
+.form-range {
+  width: 100%;
+  accent-color: rgba(79, 117, 133, 1);
 }
 </style>

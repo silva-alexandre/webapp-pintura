@@ -10,6 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/servico')]
 final class ServicoController extends AbstractController
@@ -22,23 +26,60 @@ final class ServicoController extends AbstractController
         ]);
     }
 
+    #[Route('/api', name: 'api_servicos', methods: ['GET'])]
+    public function listarServicos(ServicoRepository $servicoRepository): JsonResponse
+    {
+        $servicos = $servicoRepository->findAll();
+        
+        $data = [];
+        foreach ($servicos as $servico) {
+            $data[] = [
+                'id' => $servico->getId(),
+                'tipo' => $servico->getTipo(),
+                'detalhe' => $servico->getDetalhe(),
+                'preco' => $servico->getPreco(),
+                'fotos' => $servico->getFoto(), // Retorna a lista de imagens
+            ];
+        }
+    
+        return $this->json($data);
+    }
+
     #[Route('/new', name: 'app_servico_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $servico = new Servico();
         $form = $this->createForm(ServicoType::class, $servico);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $fotoFile = $form->get('foto')->getData();
+    
+            if ($fotoFile) {
+
+                $originalFilename = $fotoFile->getClientOriginalName();
+
+                try {
+                    $fotoFile->move(
+                        $this->getParameter('uploads_directory'),
+                        $originalFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+                $servico->setFoto([$originalFilename]);
+            }
+    
+            // Persistindo no banco
             $entityManager->persist($servico);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_servico_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('servico/new.html.twig', [
             'servico' => $servico,
-            'form' => $form,
+            'form'    => $form,
         ]);
     }
 
