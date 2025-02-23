@@ -50,23 +50,26 @@ final class ServicoController extends AbstractController
         $servico = new Servico();
         $form = $this->createForm(ServicoType::class, $servico);
         $form->handleRequest($request);
-    
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $fotoFile = $form->get('foto')->getData();
+            $fotoFiles = $form->get('foto')->getData();
+            $fotosNomes = [];
     
-            if ($fotoFile) {
-
-                $originalFilename = $fotoFile->getClientOriginalName();
-
-                try {
-                    $fotoFile->move(
-                        $this->getParameter('uploads_directory'),
-                        $originalFilename
-                    );
-                } catch (FileException $e) {
-
+            if ($fotoFiles) {
+                foreach ($fotoFiles as $fotoFile) {
+                    $originalFilename = $fotoFile->getClientOriginalName();
+    
+                    try {
+                        $fotoFile->move(
+                            $this->getParameter('uploads_directory'),
+                            $originalFilename
+                        );
+                        $fotosNomes[] = $originalFilename;
+                    } catch (FileException $e) {
+                        // Handle the exception (you might want to add logging here)
+                    }
                 }
-                $servico->setFoto([$originalFilename]);
+                $servico->setFoto($fotosNomes);
             }
     
             // Persistindo no banco
