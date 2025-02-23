@@ -7,10 +7,8 @@ return [
     'app_home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/home']], [], [], []],
     'app_servicos_opcoes' => [[], ['_controller' => 'App\\Controller\\HomeController::servicosOpcoes'], [], [['text', '/sevicos-opcoes']], [], [], []],
     'app_error' => [[], ['_controller' => 'App\\Controller\\HomeController::handleError'], [], [['text', '/error']], [], [], []],
-    'app_login' => [[], ['_controller' => 'App\\Controller\\LoginController::index'], [], [['text', '/login']], [], [], []],
     'App\Controller\HomeController::redirectToHome' => [[], ['_controller' => 'App\\Controller\\HomeController::redirectToHome'], [], [['text', '/']], [], [], []],
     'App\Controller\HomeController::index' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/home']], [], [], []],
     'App\Controller\HomeController::servicosOpcoes' => [[], ['_controller' => 'App\\Controller\\HomeController::servicosOpcoes'], [], [['text', '/sevicos-opcoes']], [], [], []],
     'App\Controller\HomeController::handleError' => [[], ['_controller' => 'App\\Controller\\HomeController::handleError'], [], [['text', '/error']], [], [], []],
-    'App\Controller\LoginController::index' => [[], ['_controller' => 'App\\Controller\\LoginController::index'], [], [['text', '/login']], [], [], []],
 ];
