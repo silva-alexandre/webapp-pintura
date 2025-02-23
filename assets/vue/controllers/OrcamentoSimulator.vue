@@ -110,12 +110,18 @@ const updateTotal = () => {
 };
 
 const submitForm = () => {
+  
+  if (!nome.value.trim() || !contato.value.trim() || !servico.value) {
+    alert('Por favor, preencha todos os campos obrigatórios');
+    return;
+  }
+  
   const payload = {
-    nome: nome.value,
-    contato: contato.value,
-    servico: servico.value ? servico.value.id : null,
-    qtd: quantidade.value,
-    valortotal: valorTotal.value,
+    nome: nome.value.trim().substring(0, 100), // Limita tamanho
+    contato: contato.value.trim().replace(/[^\d\s()-]/g, ''), // Remove caracteres especiais
+    servico: Number(servico.value.id), // Converte para número
+    qtd: Math.min(Math.max(quantidade.value, 1), 50), // Garante valor entre 1 e 50
+
   };
 
   fetch("/orcamento/api", {
