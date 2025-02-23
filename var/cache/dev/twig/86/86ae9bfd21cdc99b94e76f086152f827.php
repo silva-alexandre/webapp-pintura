@@ -30,14 +30,13 @@ class __TwigTemplate_f0e90d3a2c8ffda7223f157a4c3620c5 extends Template
         $this->source = $this->getSourceContext();
 
         $this->blocks = [
-            'title' => [$this, 'block_title'],
             'body' => [$this, 'block_body'],
         ];
     }
 
     protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
     {
-        // line 1
+        // line 2
         return "base.html.twig";
     }
 
@@ -47,31 +46,14 @@ class __TwigTemplate_f0e90d3a2c8ffda7223f157a4c3620c5 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "login/index.html.twig"));
 
-        $this->parent = $this->loadTemplate("base.html.twig", "login/index.html.twig", 1);
+        $this->parent = $this->loadTemplate("base.html.twig", "login/index.html.twig", 2);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
     }
 
-    // line 3
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_title(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        yield "Hello LoginController!";
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
-
-        yield from [];
-    }
-
-    // line 5
+    // line 6
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -81,24 +63,35 @@ class __TwigTemplate_f0e90d3a2c8ffda7223f157a4c3620c5 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 6
-        yield "<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+        // line 7
+        yield "    ";
+        if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 7, $this->source); })())) {
+            // line 8
+            yield "        <div>";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans(CoreExtension::getAttribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 8, $this->source); })()), "messageKey", [], "any", false, false, false, 8), CoreExtension::getAttribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 8, $this->source); })()), "messageData", [], "any", false, false, false, 8), "security"), "html", null, true);
+            yield "</div>
+    ";
+        }
+        // line 10
+        yield "
+    <form action=\"";
+        // line 11
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        yield "\" method=\"post\">
+        <label for=\"username\">Email:</label>
+        <input type=\"text\" id=\"username\" name=\"_username\" value=\"";
+        // line 13
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 13, $this->source); })()), "html", null, true);
+        yield "\" required>
 
-<div class=\"example-wrapper\">
-    <h1>Hello ";
-        // line 12
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["controller_name"]) || array_key_exists("controller_name", $context) ? $context["controller_name"] : (function () { throw new RuntimeError('Variable "controller_name" does not exist.', 12, $this->source); })()), "html", null, true);
-        yield "! ✅</h1>
+        <label for=\"password\">Password:</label>
+        <input type=\"password\" id=\"password\" name=\"_password\" required>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/gr-pintura/prod-gr/src/Controller/LoginController.php</code></li>
-        <li>Your template at <code>/var/www/html/gr-pintura/prod-gr/templates/login/index.html.twig</code></li>
-    </ul>
-</div>
+        ";
+        // line 20
+        yield "
+        <button type=\"submit\">login</button>
+    </form>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -127,31 +120,33 @@ class __TwigTemplate_f0e90d3a2c8ffda7223f157a4c3620c5 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  93 => 12,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
+        return array (  92 => 20,  84 => 13,  79 => 11,  76 => 10,  70 => 8,  67 => 7,  57 => 6,  40 => 2,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{# ... #}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-<div class=\"example-wrapper\">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <form action=\"{{ path('app_login') }}\" method=\"post\">
+        <label for=\"username\">Email:</label>
+        <input type=\"text\" id=\"username\" name=\"_username\" value=\"{{ last_username }}\" required>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/gr-pintura/prod-gr/src/Controller/LoginController.php</code></li>
-        <li>Your template at <code>/var/www/html/gr-pintura/prod-gr/templates/login/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
-", "login/index.html.twig", "/var/www/html/gr-pintura/prod-gr/templates/login/index.html.twig");
+        <label for=\"password\">Password:</label>
+        <input type=\"password\" id=\"password\" name=\"_password\" required>
+
+        {# If you want to control the URL the user is redirected to on success
+        <input type=\"hidden\" name=\"_target_path\" value=\"/account\"> #}
+
+        <button type=\"submit\">login</button>
+    </form>
+{% endblock %}", "login/index.html.twig", "/var/www/html/gr-pintura/prod-gr/templates/login/index.html.twig");
     }
 }

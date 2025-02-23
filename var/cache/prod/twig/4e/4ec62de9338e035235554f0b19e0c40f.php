@@ -119,7 +119,7 @@ class __TwigTemplate_fe245d313c99451c696dfbd4a7ee2147 extends Template
             <p>Obtenha a excelência com a GR Pintura</p>
             <a href=\"#projetos-realizados\" class=\"btn btn-custom btn-sm\">Projetos realizados</a>
             <a href=\"#detalhes-projeto\" class=\"btn btn-custom btn-sm\">Serviços</a>
-            <a href=\"https://wa.me/5511967237769\" class=\"btn btn-custom btn-sm\">Contato      <i class=\"bi bi-whatsapp\"></i></a>
+            <a href=\"https://wa.me/5511948780179\" class=\"btn btn-custom btn-sm\">Contato      <i class=\"bi bi-whatsapp\"></i></a>
         </div>
     </div>
 </section>

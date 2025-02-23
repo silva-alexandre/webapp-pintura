@@ -12,7 +12,6 @@ return [
         '/home' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/sevicos-opcoes' => [[['_route' => 'app_servicos_opcoes', '_controller' => 'App\\Controller\\HomeController::servicosOpcoes'], null, null, null, false, false, null]],
         '/error' => [[['_route' => 'app_error', '_controller' => 'App\\Controller\\HomeController::handleError'], null, null, null, false, false, null]],
-        '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::index'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
