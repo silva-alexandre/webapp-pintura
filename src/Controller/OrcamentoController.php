@@ -32,7 +32,7 @@ final class OrcamentoController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Validação básica dos dados recebidos
-        if (!isset($data['nome'], $data['contato'], $data['servico'], $data['qtd'], $data['valortotal'])) {
+        if (!isset($data['nome'], $data['contato'], $data['servico'], $data['qtd'])) {
             return new JsonResponse(['error' => 'Dados incompletos'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
@@ -53,9 +53,10 @@ final class OrcamentoController extends AbstractController
         $orcamento = new Orcamento();
         $orcamento->setIdCliente($cliente);
         $orcamento->setIdServico($servico);
-        $orcamento->setQtd((float) $data['qtd']);
-        $orcamento->setValorTotal((float) $data['valortotal']);
-
+        $qtd = (float)$data['qtd'];
+        $orcamento->setQtd($qtd);
+        $valorTotal = $servico->getPreco() * $qtd;
+        $orcamento->setValorTotal($valorTotal);
         // Persistindo no banco de dados
         $entityManager->persist($orcamento);
         $entityManager->flush();

@@ -121,7 +121,6 @@ const submitForm = () => {
     contato: contato.value.trim().replace(/[^\d\s()-]/g, ''), // Remove caracteres especiais
     servico: Number(servico.value.id), // Converte para número
     qtd: Math.min(Math.max(quantidade.value, 1), 50), // Garante valor entre 1 e 50
-
   };
 
   fetch("/orcamento/api", {
@@ -138,7 +137,7 @@ const submitForm = () => {
 <style scoped>
 /* Define a imagem de fundo */
 .container-fluid {
-  background: url('/public/uploads/acrilicia-inter.jpg') no-repeat center center fixed;
+  background: url('/public/uploads/06-gr-text-proj.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
