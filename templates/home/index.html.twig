@@ -6,8 +6,8 @@
 <section class="hero-section position-relative">
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
-            {% for i in 1..3 %}
-            <div class="carousel-item {{ loop.first ? 'active' : '' }}" style="background-image: url('{{ asset(i ~ '.png') }}');">
+            {% for i in 1..5 %}
+            <div class="carousel-item {{ loop.first ? 'active' : '' }}" style="background-image: url('{{ asset(i ~ '.jpg') }}');">
                 <!-- O estilo de fundo será aplicado aqui -->
             </div>
             {% endfor %}
@@ -18,8 +18,8 @@
         <div class="container text-center">
             <h1 class="text-white">Cores que inspiram, resultados que impressionam.</h1>
             <p>Obtenha a excelência com a GR Pintura</p>
-            <a href="#projetos-realizados" class="btn btn-custom btn-sm">Projetos realizados</a>
-            <a href="#detalhes-projeto" class="btn btn-custom btn-sm">Serviços</a>
+            <a href="#projetos" class="btn btn-custom btn-sm">Projetos realizados</a>
+            <a href="#projetos-realizados" class="btn btn-custom btn-sm">Serviços</a>
             <a href="https://wa.me/5511948780179" class="btn btn-custom btn-sm">Contato      <i class="bi bi-whatsapp"></i></a>
         </div>
     </div>
@@ -35,13 +35,25 @@
                 <div class="project-image" style="background-image: url('04-gr-text-proj.jpg');"></div>
             </div>
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="project-image" style="background-image: url('06-gr-text-proj.jpg');"></div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="project-image" style="background-image: url('comercial-5.png');"></div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
                 <div class="project-image" style="background-image: url('08-gr-text-proj.jpg');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('4.jpg');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('1.jpg');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('2.jpg');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('3.jpg');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('comercial-8.png');"></div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="project-image" style="background-image: url('5.jpg');"></div>
             </div>
             <!-- Adicione mais fotos conforme necessário -->
         </div>
@@ -57,7 +69,9 @@
         <header class="row py-5">
             <div class="col-lg-4 d-flex flex-column align-items-center gap-2">
                 <img src="{{ asset('gr-pintura-logo.png') }}" alt="Logo GR Pinturas" class="mb-4" style="max-width: 200px;">
-                <p class="text-black text-center">A GR Pinturas, fundada por Adriano Gubitose, é referência em pintura e revestimentos de alta qualidade na região de Jandira-SP. Nossa equipe dedicada de profissionais experientes garante resultados que superam as expectativas dos clientes.</p>
+                <p class="text-black text-center">
+                A GR Pinturas, fundada por Adriano Gubitose, é referência em pintura e revestimentos de alta qualidade na região de Jandira-SP. 
+                Nossa equipe dedicada de profissionais experientes garante resultados que superam as expectativas dos clientes.</p>
             </div>
                 <div class="col-lg-4 mt-4 d-flex flex-column align-items-start gap-2 text-center text-lg-start">
                     <h3 class="arsenal-bold text-body-emphasis"><i class="bi bi-paint-bucket"></i> Nossas Especialidades</h3>
@@ -70,8 +84,10 @@
                 </div>
                 <div class="col-lg-4 mt-2 d-flex flex-column align-items-center gap-2">
                     <h3 class="arsenal-bold text-body-emphasis">Por que escolher a GR Pinturas?</h3>
-                    <p class="arsenal-bold text-center text-black">Transforme seu espaço com a nossa experiência comprovada e um compromisso inabalável com qualidade e pontualidade. Realizamos cada projeto como se fosse único, para dar vida aos seus sonhos.</p>
-                    <a href="#projetos-realizados" class="btn btn-custom">Conheça nossas opções de serviços</a>
+                    <p class="arsenal-bold text-center text-black">
+                    Devido nosso tempo de experiência em diversos projetos e entregas pontuais, buscando contiuamente surpreender às expectativas de nossos clientes, 
+                    nos proporcionou alcançar a excelência, com muita dedicação e perseverança.</p>
+                    <a href="#projetos-realizados" class="btn btn-custom">Conheça mais sobre nossas opções de serviços</a>
                 </div>
         </header>
     </div>
@@ -80,17 +96,17 @@
 <section id="projetos-realizados" class="projects-section py-5">
     <div class="container">
         <header class="text-center mb-5">
-            <h2 class="arsenal-bold section-title">Nossas Opções de Serviços</h2>
+            <h2 class="arsenal-bold section-title">Opções de Serviços</h2>
             <p class="section-description">Explore nossas especialidades e encontre a solução perfeita para suas necessidades de pintura e revestimento.</p>
         </header>
         <div class="row justify-content-center">
             <div class="col-6 col-md-4 mb-4">
                 <div class="card">
-                    <div class="card-cover" style="background-image: url('06-gr-text-proj.jpg');"></div>
+                    <div class="card-cover" style="background-image: url('4.jpg');"></div>
                     <div class="card-body text-center">
                         <h5 class="card-title">Textura Projetada</h5>
                         <p class="card-text">Aplicação para áreas externas</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +116,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Pintura à Óleo</h5>
                         <p class="card-text">Aplicação em superfíces metálicas</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +126,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Verniz</h5>
                         <p class="card-text">Ideal para objetos com acabamento em madeira.</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -120,7 +136,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Impermeabilizantes</h5>
                         <p class="card-text">Proteja àreas expostas à chuvas</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +146,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Pintura Decorativa e Personalizada </h5>
                         <p class="card-text">Grafiato</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>
@@ -140,7 +156,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Pintura em geral</h5>
                         <p class="card-text">Acabamento de alta qualidade</p>
-                        <a href="{{ path('app_orcamento_index') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
+                        <a href="{{ path('app_orcamento_new') }}" class="stretched-link text-decoration-none text-primary fw-bold">Saiba mais</a>
                     </div>
                 </div>
             </div>

@@ -25,6 +25,7 @@
     "install": "^0.13.0",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
+    "vue-router": "^4.5.0",
     "webpack-notifier": "^1.15.0"
   }
 }

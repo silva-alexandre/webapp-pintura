@@ -63,9 +63,10 @@ height: 100vh; /* Ajuste a altura conforme necessário */
 }
 
 .carousel-item {
-height: 100vh; /* Garante que o carrossel cubra toda a altura da seção */
-background-size: cover;
-background-position: center;
+    height: 100vh; /* Garante que o carrossel cubra toda a altura da seção */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .overlay-content {
@@ -325,3 +326,21 @@ font-size: 1.75rem;
 height: 120px; /* Altura ajustada para telas ainda menores */
 }
 }
+
+/* Estilo para o rodapé */
+footer {
+    background-color: #05631c; /* Cor de fundo do rodapé */
+    color: white; /* Cor do texto */
+    padding: 20px 0; /* Padding do rodapé */
+    text-align: center; /* Centraliza o texto */
+    }
+    
+    footer a {
+    color: white; /* Cor dos links */
+    margin: 0 15px; /* Margem entre os ícones */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    }
+    
+    footer a:hover {
+    color: #007bff; /* Cor do link no hover */
+    }
