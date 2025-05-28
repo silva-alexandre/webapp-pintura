@@ -187,7 +187,7 @@ const closeModalAndRedirect = () => {
 /* Define a imagem de fundo */
 .container-fluid {
   height: 100vh;
-  background: url('/public/uploads/text-projetada.jpg') no-repeat center center fixed;
+  background: url('/public/uploads/04-gr-text-proj.jpg') no-repeat center center fixed;
   background-size: cover; /* Cobre a tela */
   background-position: center;
   margin-bottom: 0;

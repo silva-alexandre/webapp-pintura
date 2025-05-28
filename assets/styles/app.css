@@ -1,5 +1,13 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+:root {
+  --verde-floresta: #284B3B;
+  --crema-suave: #F2E8CF;
+  --bronze-antigo: #B08D57;
+  --verde-salvia: #A8B5A8;
+  --cinza-quente: #8E8577;
+}
+
 .arsenal-regular {
 font-family: "Arsenal", sans-serif;
 font-weight: 400;
@@ -33,7 +41,10 @@ font-family: 'Arsenal', sans-serif;
 }
 
 body {
-background: linear-gradient(135deg, #f5f7f5, #5ba858cc);
+background-color: var(--verde-floresta);
+color: var(--crema-suave);
+font-family: 'Segoe UI', sans-serif;
+line-height: 1.6;
 }
 
 @media (max-width: 768px) {
@@ -44,12 +55,19 @@ margin: 40px; /* Reduz o espaçamento externo para telas menores */
 }
 
 .btn-custom {
-background-color: #08634f96; /* Cor de fundo personalizada */
-color: #fff; /* Cor do texto */
-border: none; /* Remove a borda padrão */
-padding: 10px 20px; /* Ajuste do espaçamento interno */
-border-radius: 5px; /* Bordas arredondadas */
-transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+background-color: var(--verde-salvia);
+color: var(--verde-floresta);
+border: none;
+padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+font-size: clamp(0.9rem, 2vw, 1.1rem);
+border-radius: 5px;
+transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+background-color: var(--bronze-antigo);
+color: var(--crema-suave);
+transform: translateY(-2px);
 }
 
 .hero-section .container {
@@ -59,7 +77,14 @@ animation: fadeInUp 1s ease-in-out;
 .hero-section {
 position: relative;
 color: white;
-height: 100vh; /* Ajuste a altura conforme necessário */
+min-height: 100vh;
+padding: clamp(2rem, 5vh, 4rem) 0;
+}
+
+.hero-content {
+padding: clamp(1.5rem, 4vw, 3rem);
+margin: 0 auto;
+max-width: min(90%, 600px);
 }
 
 .carousel-item {
@@ -83,19 +108,19 @@ background-color: rgba(0, 0, 0, 0.5); /* Camada semi-transparente sobre as image
 }
 
 .section-background-opacity {
-background: linear-gradient(135deg, #f5f7f5, #758575cc);
+background: rgba(255, 255, 255, 0.1);
 border-radius: 15px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 padding: 20px;
-margin-top:10px;
+margin-top: 10px;
 font-size: 1.2rem;
-color: rgb(10, 10, 10);
+color: var(--crema-suave);
 }
 
 /* Estilo do título principal da seção */
 .section-title {
 font-size: 2rem;
-color: #034b0f;
+color: var(--bronze-antigo);
 text-transform: uppercase;
 margin-bottom: 10px;
 position: relative;
@@ -107,7 +132,7 @@ content: '';
 display: block;
 width: 60px;
 height: 4px;
-background-color: #44af98;
+background-color: var(--verde-salvia);
 margin: 10px auto 0;
 border-radius: 2px;
 }
@@ -115,7 +140,7 @@ border-radius: 2px;
 /* Descrição do cabeçalho */
 .section-description {
 font-size: 1rem;
-color: #555;
+color: var(--crema-suave);
 margin-bottom: 30px;
 }
 
@@ -205,55 +230,57 @@ transform: translateY(-10px); /* Eleva o card ao passar o mouse */
 box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Aumenta a sombra no hover */
 }
 
-/* Cards */
+/* Cards *
 .card {
-border: none;
-overflow: hidden;
-border-radius: 10px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+background-color: rgba(255, 255, 255, 0.1);
+border: 1px solid var(--cinza-quente);
+border-radius: clamp(0.5rem, 2vw, 1rem);
+padding: clamp(1rem, 3vw, 2rem);
+margin-bottom: clamp(1rem, 3vw, 2rem);
 transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
 transform: translateY(-5px);
-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Imagem de fundo no card */
+/* Imagem de fundo no card *
 .card-cover {
 height: 180px;
 background-size: cover;
 background-position: center;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
+height: clamp(120px, 30vw, 180px);
 }
 
-/* Títulos e textos dos cards */
+/* Títulos e textos dos cards *
 .card-title {
-font-size: 1.2rem;
-color: #034b0f;
+font-size: clamp(1.1rem, 3vw, 1.5rem);
+color: var(--bronze-antigo);
 margin-top: 15px;
 }
 
 .card-text {
-color: #666;
-font-size: 1rem;
+color: var(--crema-suave);
+font-size: clamp(0.9rem, 2vw, 1rem);
 margin-bottom: 15px;
 }
 
-/* Link do card */
+/* Link do card *
 .stretched-link {
-color: #44af98;
+color: var(--verde-salvia);
 transition: color 0.3s;
 }
 
 .stretched-link:hover {
-color: #034b0f;
+color: var(--bronze-antigo);
 }
 
 .card-cover:hover .card-cover {
 transform: scale(1.05);
-filter: brightness(0.8);/* Zoom ao passar o mouse */
+filter: brightness(0.8);/* Zoom ao passar o mouse 
 }
 
 /* Conteúdo dos Cards */
@@ -307,6 +334,15 @@ font-size: 2rem;
 .card-cover {
 height: 150px; /* Altura ajustada para telas menores */
 }
+
+.hero-content {
+margin: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.section-background-opacity {
+margin: clamp(1rem, 4vw, 2rem);
+padding: clamp(1rem, 3vw, 1.5rem);
+}
 }
 
 @media (max-width: 576px) {
@@ -325,22 +361,84 @@ font-size: 1.75rem;
 .card-cover {
 height: 120px; /* Altura ajustada para telas ainda menores */
 }
+
+.container {
+padding: 0 1rem;
+}
+
+.btn-custom {
+width: 100%;
+margin-bottom: 1rem;
+}
+
+.card {
+margin: 1rem 0;
+}
 }
 
 /* Estilo para o rodapé */
 footer {
-    background-color: #05631c; /* Cor de fundo do rodapé */
-    color: white; /* Cor do texto */
-    padding: 20px 0; /* Padding do rodapé */
-    text-align: center; /* Centraliza o texto */
-    }
-    
-    footer a {
-    color: white; /* Cor dos links */
-    margin: 0 15px; /* Margem entre os ícones */
-    text-decoration: none; /* Remove o sublinhado dos links */
-    }
-    
-    footer a:hover {
-    color: #007bff; /* Cor do link no hover */
-    }
+background-color: #1f3327;
+color: var(--crema-suave);
+padding: 20px 0;
+text-align: center;
+}
+
+footer a {
+color: var(--crema-suave);
+margin: 0 15px;
+text-decoration: none;
+}
+
+footer a:hover {
+color: var(--bronze-antigo);
+}
+
+.footer {
+padding: clamp(1.5rem, 4vh, 3rem) 0;
+background-color: #1f3327;
+}
+
+.footer p {
+font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.footer a {
+margin: clamp(0.5rem, 2vw, 1rem);
+}
+
+/* Typography responsive adjustments */
+h1 {
+font-size: clamp(2rem, 5vw, 3rem);
+font-family: 'Arsenal', sans-serif;
+}
+
+h2 {
+font-size: clamp(1.5rem, 4vw, 2rem);
+font-family: 'Arsenal', sans-serif;
+}
+
+p {
+font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+/* Section spacing responsive */
+.section {
+padding: clamp(2rem, 8vh, 6rem) 0;
+}
+
+/* Form elements responsive */
+.form-control {
+padding: clamp(0.5rem, 2vh, 1rem);
+font-size: clamp(0.9rem, 2vw, 1rem);
+background-color: rgba(255, 255, 255, 0.1);
+border: 1px solid var(--cinza-quente);
+color: var(--crema-suave);
+}
+
+/* Grid adjustments */
+.container {
+padding: 0 clamp(1rem, 5vw, 3rem);
+width: min(100% - 2rem, 1200px);
+margin: 0 auto;
+}

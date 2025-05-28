@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cadastro de Usuário</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm) }}
+        
+        <button type="submit">Cadastrar</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
+    
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            $(document).ready(function() {
+                $('form').on('submit', function(e) {
+                    e.preventDefault(); // Evita o envio padrão do formulário
+    
+                    // Exibe um alerta de confirmação
+                    Swal.fire({
+                        title: 'Você tem certeza?',
+                        text: "Deseja realmente cadastrar este usuário?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sim, cadastrar!',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit(); // Envia o formulário se o usuário confirmar
+                        }
+                    });
+                });
+            });
+        </script>
+    {% endblock %}

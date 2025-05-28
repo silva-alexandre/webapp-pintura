@@ -88,7 +88,7 @@ final class OrcamentoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_orcamento_show', methods: ['GET'])]
+    #[Route('/#{id}', name: 'app_orcamento_show', methods: ['GET'])]
     public function show(Orcamento $orcamento): Response
     {
         return $this->render('orcamento/show.html.twig', [
@@ -96,7 +96,7 @@ final class OrcamentoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_orcamento_edit', methods: ['GET', 'POST'])]
+    #[Route('/#{id}/edit', name: 'app_orcamento_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Orcamento $orcamento, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OrcamentoType::class, $orcamento);
@@ -114,7 +114,7 @@ final class OrcamentoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_orcamento_delete', methods: ['POST'])]
+    #[Route('/#{id}', name: 'app_orcamento_delete', methods: ['POST'])]
     public function delete(Request $request, Orcamento $orcamento, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$orcamento->getId(), $request->getPayload()->getString('_token'))) {

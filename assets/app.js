@@ -10,5 +10,8 @@ import './bootstrap.js';
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 
+// Import Bootstrap and its dependencies (if needed)
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
 
